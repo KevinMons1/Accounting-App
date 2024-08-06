@@ -2,11 +2,15 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Invoice} from "@/modules/invoice/domain/entities/invoice";
 import {saveInvoice} from "@/redux/thunks/invoice-thunks";
 
-const initialState = {
-    invoices: [] as Invoice[],
-}; // check le satisfies SliceState as SliceState,
+interface InvoicesState {
+    invoices: Invoice[];
+}
 
-const invoicesSlice = createSlice({
+const initialState: InvoicesState = {
+    invoices: [],
+};
+
+const invoicesSlice = createSlice<InvoicesState, {}>({
     name: 'invoices',
     initialState,
     reducers: {},

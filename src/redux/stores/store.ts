@@ -1,5 +1,6 @@
-import {configureStore} from "@reduxjs/toolkit";
+import {AnyAction, configureStore, ThunkDispatch} from "@reduxjs/toolkit";
 import invoicesSlice from "@/redux/slices/invoices-slice";
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 
 const store = configureStore({
     reducer: {
@@ -7,7 +8,10 @@ const store = configureStore({
     },
 });
 
-export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
+export type AppThunkDispatch = ThunkDispatch<RootState, any, AnyAction>;
+
+export const useAppDispatch = () => useDispatch<AppThunkDispatch>();
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export default store;

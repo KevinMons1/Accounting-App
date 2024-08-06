@@ -4,8 +4,8 @@ import {calculateTotalAmount} from "@/modules/invoice/domain/entities/invoice";
 
 export const createInvoiceService = (invoiceRepository: InvoiceRepository<CreateInvoice>) => {
     return {
-        createInvoice: async (data: CreateInvoice) => {
-            return invoiceRepository.saveInvoice({
+        createInvoice: async (data: CreateInvoice): Promise<void> => {
+            return await invoiceRepository.saveInvoice({
                 ...data,
                 totalAmount: calculateTotalAmount(data.articles),
             });

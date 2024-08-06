@@ -7,7 +7,7 @@ export const createInvoiceAppService = (invoiceRepository: InvoiceRepository<Cre
 
     return {
         saveInvoice: async (data: CreateInvoice): Promise<void> => {
-            return invoiceService.createInvoice(data);
+            return await invoiceService.createInvoice(data);
         },
     };
 }
