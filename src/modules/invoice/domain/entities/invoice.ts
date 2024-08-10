@@ -1,14 +1,10 @@
-import {InvoiceArticle} from "@/modules/invoice/domain/types/invoice";
+import { InvoiceArticle } from '@/modules/invoice/domain/types/invoice';
 
 export type Invoice = {
-    id: string;
-    articles: InvoiceArticle[];
-    createdAt: Date;
-    totalAmount: number;
-}
-
-export const calculateTotalAmount = (articles: InvoiceArticle[]): number => {
-    return articles.reduce((acc, curr) => {
-        return acc + (curr.price * curr.quantity);
-    }, 0);
+  id: string;
+  articles: InvoiceArticle[];
+  createdAt: Date;
+  total: number;
+  subtotal: number;
+  vatTotal: number;
 };

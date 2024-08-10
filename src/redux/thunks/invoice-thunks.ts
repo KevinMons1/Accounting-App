@@ -1,12 +1,14 @@
-import {createFirebaseInvoiceRepository} from "@/modules/invoice/create/infrastructure/firebase/create-firebase-invoice-repository";
-import {createInvoiceAppService} from "@/modules/invoice/create/application/services/create-invoice-app-service";
-import {CreateInvoice} from "@/modules/invoice/create/domain/entities/invoice";
-import {createAsyncThunk} from "@reduxjs/toolkit";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { CreateInvoice } from '@/modules/invoice/domain/types/invoice';
+import { _invoiceAppService } from '@/configs/invoice-config';
 
-const invoiceRepository = createFirebaseInvoiceRepository();
-const invoiceAppService = createInvoiceAppService(invoiceRepository);
-
-export const saveInvoice = createAsyncThunk<CreateInvoice, CreateInvoice>('invoices/save', async (data: CreateInvoice) => {
-  await invoiceAppService.saveInvoice(data);
-  return data;
-});
+export const createInvoice = createAsyncThunk<void, CreateInvoice>(
+  'invoices/create',
+  async (data: CreateInvoice, { rejectWithValue }) => {
+    try {
+      await _invoiceAppService.createInvoice(data);
+    } catch (error) {
+      rejectWithValue(error);
+    }
+  }
+);

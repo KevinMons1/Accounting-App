@@ -1,5 +1,5 @@
-import {Invoice} from "@/modules/invoice/domain/entities/invoice";
+import { Invoice } from '@/modules/invoice/domain/entities/invoice';
 
-export interface InvoiceRepository<T extends Invoice = Invoice> {
-    saveInvoice(invoice: T): Promise<void>
+export interface InvoiceRepository<T extends Invoice = T> {
+  createInvoice(invoice: T): Promise<void>;
 }

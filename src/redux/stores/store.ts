@@ -1,11 +1,12 @@
-import {AnyAction, configureStore, ThunkDispatch} from "@reduxjs/toolkit";
-import invoicesSlice from "@/redux/slices/invoices-slice";
-import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import { AnyAction, configureStore, ThunkDispatch } from '@reduxjs/toolkit';
+import invoiceCreateSlice from '@/redux/slices/invoice-create-slice';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 const store = configureStore({
-    reducer: {
-        invoices: invoicesSlice.reducer,
-    },
+  reducer: {
+    invoiceCreate: invoiceCreateSlice.reducer,
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
