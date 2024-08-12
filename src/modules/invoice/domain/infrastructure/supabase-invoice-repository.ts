@@ -5,12 +5,21 @@ import { supabase } from '@/configs/supabase-config';
 
 export const supabaseInvoiceRepository = (): InvoiceRepository<Invoice> => {
   return {
+    getInvoices: async (): Promise<Invoice[]> => {
+      const { data, error } = await supabase.from('invoices').select('*');
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      return data;
+    },
     createInvoice: async (data: CreateInvoiceDto): Promise<void> => {
-      const { articles, total_amount } = data;
+      const { articles, total } = data;
 
       const { data: invoice, error: invoiceError } = await supabase
         .from('invoices')
-        .insert({ total_amount })
+        .insert({ total })
         .select();
 
       if (invoiceError) {
@@ -24,6 +33,7 @@ export const supabaseInvoiceRepository = (): InvoiceRepository<Invoice> => {
         description: article.description,
         quantity: article.quantity,
         price: article.price,
+        vat: article.vat,
       }));
 
       const { error: itemsError } = await supabase.from('invoice_articles').insert(invoiceItems);

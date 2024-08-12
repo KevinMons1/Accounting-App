@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
 import useCreateInvoice from '@/react/invoices/create/hooks/use-create-invoice';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
+import { Input } from '@/react/components/ui/input';
+import { Button } from '@/react/components/ui/button';
+import { Label } from '@/react/components/ui/label';
 
 const InvoiceCreateForm = () => {
   const { isLoading, errorMessage, handleAddArticle, handleChange, onSubmit } = useCreateInvoice();
