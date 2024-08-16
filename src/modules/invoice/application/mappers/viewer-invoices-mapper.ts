@@ -1,11 +1,18 @@
-import { InvoiceDto } from '@/modules/invoice/domain/dto/invoice';
-import { Invoice } from '@/modules/invoice/domain/entities/invoice';
+import { InvoiceArticleDto, InvoiceBaseDto } from '@/modules/invoice/domain/dto/invoice';
+import { InvoiceArticle, InvoiceBase } from '../../domain/types/invoice';
 
-export const mapInvoicesDtoToInvoiceData = (invoicesDto: InvoiceDto[]): Invoice[] => {
-  return invoicesDto.map(invoice => ({
+export const mapInvoiceArticlesDtoToInvoiceArticleData = (invoiceArticlesDto: InvoiceArticleDto): InvoiceArticle => {
+  return {
+    description: invoiceArticlesDto.description,
+    quantity: invoiceArticlesDto.quantity,
+    price: invoiceArticlesDto.price,
+    vat: invoiceArticlesDto.vat,
+  };
+};
+
+export const mapInvoicesDtoToInvoiceData = (invoicesDto: InvoiceBaseDto[]): InvoiceBase[] => {
+  return invoicesDto.map((invoice) => ({
     id: invoice.id,
-    articles: invoice.articles,
-    createdAt: invoice.createdAt,
     total: invoice.total,
     subtotal: invoice.subtotal,
     vatTotal: invoice.vat_total,

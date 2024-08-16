@@ -1,9 +1,9 @@
 import { InvoiceArticle } from '@/modules/invoice/domain/types/invoice';
 
 export type Invoice = {
-  id: string;
+  id: number;
   articles: InvoiceArticle[];
-  createdAt: Date;
+  createdAt: string;
   total: number;
   subtotal: number;
   vatTotal: number;

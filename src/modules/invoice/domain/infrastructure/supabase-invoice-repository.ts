@@ -1,11 +1,10 @@
 import { InvoiceRepository } from '@/modules/invoice/domain/repositories/invoice-repository';
-import { CreateInvoiceDto } from '@/modules/invoice/domain/dto/invoice';
-import { Invoice } from '@/modules/invoice/domain/entities/invoice';
+import { CreateInvoiceDto, InvoiceBaseDto } from '@/modules/invoice/domain/dto/invoice';
 import { supabase } from '@/configs/supabase-config';
 
-export const supabaseInvoiceRepository = (): InvoiceRepository<Invoice> => {
+export const supabaseInvoiceRepository = (): InvoiceRepository => {
   return {
-    getInvoices: async (): Promise<Invoice[]> => {
+    getInvoices: async (): Promise<InvoiceBaseDto[]> => {
       const { data, error } = await supabase.from('invoices').select('*');
 
       if (error) {
@@ -15,25 +14,26 @@ export const supabaseInvoiceRepository = (): InvoiceRepository<Invoice> => {
       return data;
     },
     createInvoice: async (data: CreateInvoiceDto): Promise<void> => {
-      const { articles, total } = data;
+      const { invoice_articles, total, subtotal, vat_total } = data;
 
       const { data: invoice, error: invoiceError } = await supabase
         .from('invoices')
-        .insert({ total })
+        .insert({
+          total,
+          subtotal,
+          vat_total,
+        })
         .select();
 
       if (invoiceError) {
         throw new Error(invoiceError.message);
       }
 
-      const invoiceId = invoice![0].id!;
+      const invoiceId = invoice[0].id;
 
-      const invoiceItems = articles.map((article) => ({
+      const invoiceItems = invoice_articles.map((article) => ({
+        ...article,
         invoice_id: invoiceId,
-        description: article.description,
-        quantity: article.quantity,
-        price: article.price,
-        vat: article.vat,
       }));
 
       const { error: itemsError } = await supabase.from('invoice_articles').insert(invoiceItems);

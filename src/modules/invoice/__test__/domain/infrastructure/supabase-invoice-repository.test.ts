@@ -1,4 +1,7 @@
-import { createInvoiceDtoFactory, createInvoiceFactory } from '@/modules/invoice/__test__/factories/invoice-factory';
+import {
+  createCreateInvoiceDtoFactory,
+  createInvoiceBaseFactory,
+} from '@/modules/invoice/__test__/factories/invoice-factory';
 import { supabaseInvoiceRepository } from '@/modules/invoice/domain/infrastructure/supabase-invoice-repository';
 import { supabase } from '@/configs/supabase-config';
 
@@ -9,15 +12,15 @@ jest.mock('@/configs/supabase-config', () => ({
 }));
 
 describe('supabaseInvoiceRepository', () => {
-  const mockInvoiceData = createInvoiceDtoFactory();
+  const mockInvoiceDto = createCreateInvoiceDtoFactory();
 
   beforeEach(() => {
     jest.clearAllMocks();
-  })
+  });
 
   describe('getInvoices', () => {
     it('should return invoices successfully', async () => {
-      const mockInvoices = [createInvoiceFactory()];
+      const mockInvoices = [createInvoiceBaseFactory()];
       const mockSelect = jest.fn().mockResolvedValueOnce({
         data: mockInvoices,
         error: null,
@@ -27,7 +30,7 @@ describe('supabaseInvoiceRepository', () => {
         select: mockSelect,
       });
 
-      (supabase.from as jest.mock).mockImplementation(mockFrom);
+      (supabase.from as jest.Mock).mockImplementation(mockFrom);
 
       const repository = supabaseInvoiceRepository();
 
@@ -36,7 +39,7 @@ describe('supabaseInvoiceRepository', () => {
       expect(supabase.from).toHaveBeenCalledWith('invoices');
       expect(mockSelect).toHaveBeenCalledWith('*');
       expect(invoices).toEqual(mockInvoices);
-    })
+    });
 
     it('should throw and error if get invoices fails', async () => {
       const mockSelect = jest.fn().mockResolvedValueOnce({
@@ -50,13 +53,13 @@ describe('supabaseInvoiceRepository', () => {
         select: mockSelect,
       });
 
-      (supabase.from as jest.mock).mockImplementation(mockFrom);
+      (supabase.from as jest.Mock).mockImplementation(mockFrom);
 
       const repository = supabaseInvoiceRepository();
 
       await expect(repository.getInvoices()).rejects.toThrow('Get invoices failed');
-    })
-  })
+    });
+  });
 
   describe('createInvoice', () => {
     it('should create an invoice and its articles successfully', async () => {
@@ -74,20 +77,22 @@ describe('supabaseInvoiceRepository', () => {
 
       const repository = supabaseInvoiceRepository();
 
-      await repository.createInvoice(mockInvoiceData);
+      await repository.createInvoice(mockInvoiceDto);
 
       expect(supabase.from).toHaveBeenCalledWith('invoices');
-      expect(mockInsert).toHaveBeenCalledWith({ total: 12 });
+      expect(mockInsert).toHaveBeenCalledWith({ total: 12, subtotal: 10, vat_total: 2 });
       expect(mockSelect).toHaveBeenCalled();
       expect(supabase.from).toHaveBeenCalledWith('invoice_articles');
-      expect(mockInsert).toHaveBeenCalledWith([{
-        invoice_id: '1',
-        description: 'Bread',
-        price: 10,
-        quantity: 1,
-        vat: 20,
-      }]);
-    })
+      expect(mockInsert).toHaveBeenCalledWith([
+        {
+          invoice_id: '1',
+          description: 'Bread',
+          price: 10,
+          quantity: 1,
+          vat: 20,
+        },
+      ]);
+    });
 
     it('should throw an error if invoice creation fails', async () => {
       const mockInsert = jest.fn().mockReturnThis();
@@ -106,8 +111,8 @@ describe('supabaseInvoiceRepository', () => {
 
       const repository = supabaseInvoiceRepository();
 
-      await expect(repository.createInvoice(mockInvoiceData)).rejects.toThrow('Insert failed');
-    })
+      await expect(repository.createInvoice(mockInvoiceDto)).rejects.toThrow('Insert failed');
+    });
 
     it('should throw an error if invoice articles creation fails', async () => {
       const mockInsertInvoice = jest.fn().mockReturnThis();
@@ -137,7 +142,7 @@ describe('supabaseInvoiceRepository', () => {
 
       const repository = supabaseInvoiceRepository();
 
-      await expect(repository.createInvoice(mockInvoiceData)).rejects.toThrow('Items insert failed');
+      await expect(repository.createInvoice(mockInvoiceDto)).rejects.toThrow('Items insert failed');
     });
   });
 });

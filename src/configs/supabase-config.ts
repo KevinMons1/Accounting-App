@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import { Database } from '@/shared/types/supabase';
+import { Database } from '@/shared/types/supabase-types';
 
 const supabaseConfig = {
   url: process.env.NEXT_PUBLIC_SUPABASE_URL,

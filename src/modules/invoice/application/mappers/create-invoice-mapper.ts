@@ -3,10 +3,11 @@ import { CreateInvoice } from '@/modules/invoice/domain/types/invoice';
 
 export const mapCreateInvoiceToDto = (data: CreateInvoice): CreateInvoiceDto => {
   return {
-    articles: data.articles.map((article) => ({
+    invoice_articles: data.articles.map((article) => ({
       description: article.description,
       quantity: article.quantity,
       price: article.price,
+      vat: article.vat,
     })),
     total: data.total,
     subtotal: data.subtotal,

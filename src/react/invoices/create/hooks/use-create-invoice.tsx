@@ -1,14 +1,16 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/stores/store';
-import { addArticle } from '@/redux/slices/invoice-create-slice';
+import { addArticle } from '@/react/invoices/create/slices/invoice-create-slice';
 import { InvoiceArticle } from '@/modules/invoice/domain/types/invoice';
-import { v4 as uuidv4 } from 'uuid';
 import { createInvoice } from '@/redux/thunks/invoice-thunks';
+import { v4 as uuidv4 } from 'uuid';
 
 const initialState: InvoiceArticle = {
+  articleId: '',
   description: '',
   price: 0,
   quantity: 0,
+  vat: 0,
 } as const;
 
 const UseCreateInvoice = () => {
@@ -19,7 +21,7 @@ const UseCreateInvoice = () => {
   const handleAddArticle = () => {
     dispatch(
       addArticle({
-        id: uuidv4(),
+        articleId: uuidv4(),
         ...state,
       })
     );

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CreateInvoice, InvoiceArticle } from '@/modules/invoice/domain/types/invoice';
 import { createInvoice } from '@/redux/thunks/invoice-thunks';
+import { handleFulfilled, handlePending, handleRejected } from '@/shared/utils/redux-utils';
 
 interface InvoiceState {
   isLoading: boolean;
@@ -15,11 +16,13 @@ const initialState: InvoiceState = {
   errorMessage: '',
   invoice: {
     articles: [],
-    totalAmount: 0,
+    total: 0,
+    subtotal: 0,
+    vatTotal: 0,
   },
 } as const;
 
-const invoiceCreateSlice = createSlice<InvoiceState, {}>({
+const invoiceCreateSlice = createSlice({
   name: 'invoiceCreate',
   initialState,
   reducers: {
@@ -29,17 +32,13 @@ const invoiceCreateSlice = createSlice<InvoiceState, {}>({
   },
   extraReducers: (builder) => {
     builder.addCase(createInvoice.pending, (state) => {
-      state.isLoading = true;
+      handlePending(state);
     });
     builder.addCase(createInvoice.rejected, (state, action) => {
-      state.isLoading = false;
-      state.isError = true;
-      state.errorMessage = action?.error?.message || 'Failed to save invoice';
+      handleRejected({ state, errorMessage: action?.error?.message ?? 'Failed to create invoice' });
     });
     builder.addCase(createInvoice.fulfilled, (state) => {
-      state.isLoading = false;
-      state.isError = false;
-      state.errorMessage = '';
+      handleFulfilled(state);
       state.invoice = initialState.invoice;
     });
   },

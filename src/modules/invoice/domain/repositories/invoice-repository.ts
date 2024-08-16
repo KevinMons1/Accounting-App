@@ -1,6 +1,7 @@
-import { Invoice } from '@/modules/invoice/domain/entities/invoice';
+import { CreateInvoiceDto, InvoiceBaseDto } from '../dto/invoice';
 
-export interface InvoiceRepository<T extends Invoice = T> {
-  createInvoice(invoice: T): Promise<void>;
-  getInvoices(): Promise<T[]>;
+export interface InvoiceRepository {
+  createInvoice(data: CreateInvoiceDto): Promise<void>;
+
+  getInvoices(): Promise<InvoiceBaseDto[]>;
 }

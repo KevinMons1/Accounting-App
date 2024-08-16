@@ -4,10 +4,11 @@
     "plugin:testing-library/react",
     "plugin:jest-dom/recommended",
     "plugin:sonarjs/recommended-legacy",
-    "prettier"
+    "plugin:prettier/recommended"
   ],
-  "plugins": ["sonarjs"],
+  "plugins": ["prettier", "sonarjs"],
   "rules": {
-    "sonarjs/cognitive-complexity": "error"
+    "sonarjs/cognitive-complexity": "error",
+    "prettier/prettier": "error"
   }
 }

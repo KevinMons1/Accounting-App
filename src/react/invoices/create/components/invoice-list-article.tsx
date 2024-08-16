@@ -4,11 +4,10 @@ import useInvoiceListArticle from '@/react/invoices/create/hooks/use-invoice-lis
 
 const InvoiceListArticle = () => {
   const { articles } = useInvoiceListArticle();
-  console.log(articles);
   return (
     <ul>
       {articles.map((article) => (
-        <li key={article.id}>{article.description}</li>
+        <li key={article.articleId}>{article.description}</li>
       ))}
     </ul>
   );

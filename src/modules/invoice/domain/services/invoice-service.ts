@@ -1,5 +1,4 @@
 import { InvoiceArticle } from '@/modules/invoice/domain/types/invoice';
-import { Invoice } from '@/modules/invoice/domain/entities/invoice';
 
 export const invoiceService = {
   calculateArticleTotal: (price: number, quantity: number): number => {
@@ -9,14 +8,16 @@ export const invoiceService = {
     return amount * (vat / 100);
   },
   calculateSubtotal: (articles: InvoiceArticle[]): number => {
-    return articles.reduce((acc, article) => {
-      return acc + invoiceService.calculateArticleTotal(article.price, article.quantity)
+    return articles.reduce((acc, curr) => {
+      return acc + invoiceService.calculateArticleTotal(curr.price, curr.quantity);
     }, 0);
   },
   calculateVatTotal: (articles: InvoiceArticle[]): number => {
-    return articles.reduce((acc, article) => acc + invoiceService.calculateVatAmount(article.price, article.vat), 0);
+    return articles.reduce((acc, curr) => {
+      return acc + invoiceService.calculateVatAmount(curr.price, curr.vat ?? 0);
+    }, 0);
   },
-  calculateTotal: (invoice: Invoice): number => {
-    return invoice.subtotal + invoice.vatTotal;
+  calculateTotal: (subtotal: number, vatTotal: number): number => {
+    return subtotal + vatTotal;
   },
 };
