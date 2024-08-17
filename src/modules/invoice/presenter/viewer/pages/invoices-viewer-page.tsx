@@ -1,5 +1,5 @@
 import React from 'react';
-import InvoicesTable from '@/react/invoices/viewer/components/table/invoices-table';
+import InvoicesTable from '../components/table/invoices-table';
 
 const InvoicesViewerPage = () => {
   return (

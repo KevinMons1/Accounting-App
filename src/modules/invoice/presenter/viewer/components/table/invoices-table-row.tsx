@@ -1,6 +1,6 @@
 import React from 'react';
-import { TableCell, TableRow } from '@/react/components/ui/table';
 import { InvoiceBase } from '@/modules/invoice/domain/types/invoice';
+import { TableCell, TableRow } from '@/modules/shared/presenter/components/ui/table';
 
 type Props = {
   data: InvoiceBase;

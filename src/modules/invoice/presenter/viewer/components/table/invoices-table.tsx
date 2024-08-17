@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, TableCaption, TableHead, TableHeader, TableRow } from '@/react/components/ui/table';
+import { Table, TableCaption, TableHead, TableHeader, TableRow } from '@/modules/shared/presenter/components/ui/table';
 import InvoicesTableBody from './invoices-table-body';
 
 const InvoicesTable = () => {
@@ -9,9 +9,9 @@ const InvoicesTable = () => {
       <TableHeader>
         <TableRow>
           <TableHead className='w-[100px]'>Id</TableHead>
-          <TableHead>Subtotal</TableHead>
-          <TableHead>VAT Total</TableHead>
-          <TableHead>Total</TableHead>
+          <TableHead className='w-[25%]'>Subtotal</TableHead>
+          <TableHead className='w-[25%]'>VAT Total</TableHead>
+          <TableHead className='w-[25%]'>Total</TableHead>
         </TableRow>
       </TableHeader>
       <InvoicesTableBody />

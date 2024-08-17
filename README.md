@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Accounting App
 
-## Getting Started
+## Overview
 
-First, run the development server:
+This project is structured following Domain-Driven Design (DDD) principles, focusing on a modular architecture where the core business logic is encapsulated within specific domain modules. The primary focus of this project is to manage invoices, leveraging modern web technologies to provide a scalable and maintainable codebase.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Table of Contents
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [Setup](#setup)
+- [Technologies](#technologies)
+- [DDD Implementation](#ddd-implementation)
 
-You can start editing the page by modifying `app/invoice-create-page.tsx`. The page auto-updates as you edit the file.
+## Prerequisites
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Before running the project, ensure you have the following installed:
 
-## Learn More
+- Node.js (v20.11.0)
+- yarn
 
-To learn more about Next.js, take a look at the following resources:
+## Setup
+1. ``yarn``
+2. ``yarn dev``
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Technologies
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+The project leverages the following key technologies:
 
-## Deploy on Vercel
+- Next.js: A React framework for building server-side rendered (SSR) applications.
+- TypeScript: Provides static typing for better code quality and maintainability.
+- Redux: State management library, used for managing application-wide state.
+- Jest: Testing framework for ensuring code reliability through unit tests.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## DDD Implementation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Domain Layer
+
+The `domain` directory within each module (e.g., `modules/invoice/domain`) contains the core business logic. This layer is responsible for defining the business rules, entities, value objects, and domain services.
+
+### Application Layer
+
+The `application` directory handles the orchestration of the domain logic. It includes use cases, services, and any other application-specific logic that interacts with the domain layer.
+
+### Presenter Layer
+
+The `presenter` directory is responsible for preparing the data for the UI layer. It may include controllers, mappers, and other components that adapt the domain logic to be used in the frontend.
+
+### Shared Module
+
+The `shared` module provides common resources and utilities that can be reused across different domain modules. This includes shared types, configurations, and utility functions.

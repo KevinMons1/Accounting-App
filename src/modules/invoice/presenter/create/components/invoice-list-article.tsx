@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
-import useInvoiceListArticle from '@/react/invoices/create/hooks/use-invoice-list-article';
+import UseInvoiceListArticle from '../hooks/use-invoice-list-article';
 
 const InvoiceListArticle = () => {
-  const { articles } = useInvoiceListArticle();
+  const { articles } = UseInvoiceListArticle();
   return (
     <ul>
       {articles.map((article) => (

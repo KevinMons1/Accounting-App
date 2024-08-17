@@ -1,11 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { CreateInvoice, InvoiceBase } from '@/modules/invoice/domain/types/invoice';
-import { _invoiceAppService } from '@/modules/invoice/configs/invoice-config';
+import { createInvoiceUseCase } from '../../application/use-cases/create-invoice.usecase';
+import { _invoiceRepository } from '../../configs/invoice-config';
+import { getInvoicesUseCase } from '../../application/use-cases/get-invoices.usecase';
 
 export const getInvoices = createAsyncThunk<InvoiceBase[], void>('invoices/getBase', async (_, { rejectWithValue }) => {
   let result: InvoiceBase[] = [];
   try {
-    result = await _invoiceAppService.getInvoices();
+    result = await getInvoicesUseCase(_invoiceRepository)();
   } catch (error) {
     rejectWithValue(error);
   }
@@ -16,7 +18,7 @@ export const createInvoice = createAsyncThunk<void, CreateInvoice>(
   'invoices/create',
   async (data: CreateInvoice, { rejectWithValue }) => {
     try {
-      await _invoiceAppService.createInvoice(data);
+      await createInvoiceUseCase(_invoiceRepository)(data);
     } catch (error) {
       rejectWithValue(error);
     }

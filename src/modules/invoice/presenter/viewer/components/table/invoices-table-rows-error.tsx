@@ -1,4 +1,4 @@
-import { TableCell, TableRow } from '@/react/components/ui/table';
+import { TableCell, TableRow } from '@/modules/shared/presenter/components/ui/table';
 
 type Props = {
   errorMessage: string;

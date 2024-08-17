@@ -1,5 +1,5 @@
-import { Skeleton } from '@/react/components/ui/skeleton';
-import { TableCell, TableRow } from '@/react/components/ui/table';
+import { Skeleton } from '@/modules/shared/presenter/components/ui/skeleton';
+import { TableCell, TableRow } from '@/modules/shared/presenter/components/ui/table';
 import React from 'react';
 
 const InvoiceTableRowsLoader = () => {

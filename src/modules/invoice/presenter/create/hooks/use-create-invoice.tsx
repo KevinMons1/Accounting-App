@@ -1,9 +1,9 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/modules/shared/redux/stores/store';
-import { addArticle } from '@/react/invoices/create/slices/invoice-create-slice';
 import { InvoiceArticle } from '@/modules/invoice/domain/types/invoice';
 import { createInvoice } from '@/modules/invoice/redux/thunks/invoice-thunks';
 import { v4 as uuidv4 } from 'uuid';
+import { addArticle } from '../slices/invoice-create-slice';
 
 const initialState: InvoiceArticle = {
   articleId: '',
