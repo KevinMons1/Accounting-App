@@ -1,6 +1,6 @@
 import { InvoiceRepository } from '@/modules/invoice/domain/repositories/invoice-repository';
 import { CreateInvoiceDto, InvoiceBaseDto } from '@/modules/invoice/domain/dto/invoice';
-import { supabase } from '@/configs/supabase-config';
+import { supabase } from '@/modules/shared/configs/supabase-config';
 
 export const supabaseInvoiceRepository = (): InvoiceRepository => {
   return {

@@ -3,9 +3,9 @@ import {
   createInvoiceBaseFactory,
 } from '@/modules/invoice/__test__/factories/invoice-factory';
 import { supabaseInvoiceRepository } from '@/modules/invoice/domain/infrastructure/supabase-invoice-repository';
-import { supabase } from '@/configs/supabase-config';
+import { supabase } from '@/modules/shared/configs/supabase-config';
 
-jest.mock('@/configs/supabase-config', () => ({
+jest.mock('@/modules/shared/configs/supabase-config', () => ({
   supabase: {
     from: jest.fn(),
   },

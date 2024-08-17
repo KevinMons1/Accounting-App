@@ -1,4 +1,4 @@
-import { Database } from '@/shared/types/supabase-types';
+import { Database } from '@/modules/shared/types/supabase-types';
 
 export type InvoiceArticleDto = Database['public']['Tables']['invoice_articles']['Row'];
 
