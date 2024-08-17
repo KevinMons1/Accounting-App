@@ -13,7 +13,7 @@ const initialState: InvoiceArticle = {
   vat: 0,
 } as const;
 
-const UseCreateInvoice = () => {
+const UseInvoiceCreate = () => {
   const dispatch = useAppDispatch();
   const { invoice, isLoading, errorMessage } = useAppSelector((state) => state.invoiceCreate);
   const [state, setState] = useState<InvoiceArticle>({ ...initialState });
@@ -50,4 +50,4 @@ const UseCreateInvoice = () => {
   };
 };
 
-export default UseCreateInvoice;
+export default UseInvoiceCreate;

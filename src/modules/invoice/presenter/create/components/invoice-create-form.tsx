@@ -3,7 +3,7 @@ import React from 'react';
 import { Label } from '@/modules/shared/presenter/components/ui/label';
 import { Input } from '@/modules/shared/presenter/components/ui/input';
 import { Button } from '@/modules/shared/presenter/components/ui/button';
-import UseCreateInvoice from '../hooks/use-create-invoice';
+import UseCreateInvoice from '../hooks/use-invoice-create';
 
 const InvoiceCreateForm = () => {
   const { isLoading, errorMessage, handleAddArticle, handleChange, onSubmit } = UseCreateInvoice();

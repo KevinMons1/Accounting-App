@@ -1,13 +1,8 @@
 import React from 'react';
-import InvoiceCreatePage from '@/react/invoices/create/pages/invoice-create-page';
-import LayoutBase from '@/react/components/layouts/layout-base';
+import InvoiceCreatePage from '@/modules/invoice/presenter/create/pages/invoice-create-page';
 
 const Page = () => {
-  return (
-    <LayoutBase>
-      <InvoiceCreatePage />;
-    </LayoutBase>
-  );
+  return <InvoiceCreatePage />;
 };
 
 export default Page;

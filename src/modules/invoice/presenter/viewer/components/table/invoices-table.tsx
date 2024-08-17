@@ -12,6 +12,7 @@ const InvoicesTable = () => {
           <TableHead className='w-[25%]'>Subtotal</TableHead>
           <TableHead className='w-[25%]'>VAT Total</TableHead>
           <TableHead className='w-[25%]'>Total</TableHead>
+          <TableHead className='w-[100px]'>Actions</TableHead>
         </TableRow>
       </TableHeader>
       <InvoicesTableBody />

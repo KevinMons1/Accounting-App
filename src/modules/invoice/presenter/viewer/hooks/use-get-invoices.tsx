@@ -8,7 +8,6 @@ const useGetInvoices = () => {
   const canShowInvoices = !isLoading && !isError;
 
   useEffect(() => {
-    console.log('render');
     dispatch(getInvoices());
   }, [dispatch]);
 
